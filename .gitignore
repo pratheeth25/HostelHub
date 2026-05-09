@@ -7,6 +7,9 @@
 .pub/
 build/
 *.iml
+*.ipr
+*.iws
+flutter_export_environment.sh
 
 # Android
 android/.gradle
@@ -16,6 +19,7 @@ android/gradlew.bat
 android/local.properties
 android/**/GeneratedPluginRegistrant.java
 android/key.properties
+android/app/google-services.json
 *.jks
 *.keystore
 
@@ -45,6 +49,10 @@ lib/generated_plugin_registrant.dart
 google-services.json
 GoogleService-Info.plist
 firebase_options.dart
+.firebaserc
+firebase-debug.log
+firestore-debug.log
+ui-debug.log
 
 # Coverage
 coverage/
@@ -57,13 +65,13 @@ app.map
 
 # IntelliJ / Android Studio
 .idea/
-*.ipr
-*.iws
 .gradle/
 
 # Environment
 .env
 *.env
+*.env.local
+*.env.*.local
 
 # OS
 .DS_Store
