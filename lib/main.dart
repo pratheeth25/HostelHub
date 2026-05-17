@@ -1,30 +1,90 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'core/theme/app_theme.dart';
-import 'core/router/app_router.dart';
-import 'services/notification_service.dart';
+import 'package:provider/provider.dart';
 
-void main() async {
+import 'firebase_options.dart';
+
+import 'core/theme/app_theme.dart';
+
+import 'core/providers/auth_provider.dart';
+import 'core/providers/theme_provider.dart';
+
+import 'features/announcements/presentation/providers/announcements_provider.dart';
+import 'features/attendance/presentation/providers/attendance_provider.dart';
+import 'features/complaints/presentation/providers/complaints_provider.dart';
+import 'features/food/presentation/providers/food_provider.dart';
+
+import 'features/auth/presentation/screens/splash_screen.dart';
+
+Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp();
-  await NotificationService().initialize();
-  runApp(const ProviderScope(child: CampusSphereApp()));
+
+  try {
+    await Firebase.initializeApp(
+      options: DefaultFirebaseOptions.currentPlatform,
+    );
+
+    debugPrint("Firebase initialized successfully");
+  } catch (e, stackTrace) {
+    debugPrint("Firebase initialization error: $e");
+    debugPrintStack(stackTrace: stackTrace);
+  }
+
+  FlutterError.onError = (FlutterErrorDetails details) {
+    FlutterError.dumpErrorToConsole(details);
+  };
+
+  runApp(const HostelHubApp());
 }
 
-class CampusSphereApp extends ConsumerWidget {
-  const CampusSphereApp({super.key});
+class HostelHubApp extends StatelessWidget {
+  const HostelHubApp({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    final router = ref.watch(routerProvider);
-    return MaterialApp.router(
-      title: 'HostelHub',
-      theme: AppTheme.light,
-      darkTheme: AppTheme.dark,
-      themeMode: ThemeMode.system,
-      routerConfig: router,
-      debugShowCheckedModeBanner: false,
+  Widget build(BuildContext context) {
+    return MultiProvider(
+      providers: [
+        /// Theme Provider
+        ChangeNotifierProvider(
+          create: (_) => ThemeProvider(),
+        ),
+
+        /// Auth Provider
+        ChangeNotifierProvider(
+          create: (_) => AuthProvider(),
+        ),
+
+        /// Feature Providers
+        ChangeNotifierProvider(
+          create: (_) => AnnouncementsProvider(),
+        ),
+
+        ChangeNotifierProvider(
+          create: (_) => AttendanceProvider(),
+        ),
+
+        ChangeNotifierProvider(
+          create: (_) => ComplaintsProvider(),
+        ),
+
+        ChangeNotifierProvider(
+          create: (_) => FoodProvider(),
+        ),
+      ],
+      child: Consumer<ThemeProvider>(
+        builder: (context, themeProvider, child) {
+          return MaterialApp(
+            title: 'Hostel Hub',
+            debugShowCheckedModeBanner: false,
+
+            theme: AppTheme.lightTheme,
+            darkTheme: AppTheme.darkTheme,
+            themeMode: themeProvider.themeMode,
+
+            home: const SplashScreen(),
+          );
+        },
+      ),
     );
   }
 }

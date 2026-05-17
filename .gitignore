@@ -1,78 +1,64 @@
-# Flutter / Dart
-.dart_tool/
-.flutter-plugins
-.flutter-plugins-dependencies
-.packages
-.pub-cache/
-.pub/
-build/
+# Miscellaneous
+*.class
+*.log
+*.pyc
+*.swp
+.DS_Store
+.atom/
+.build/
+.buildlog/
+.history
+.svn/
+.swiftpm/
+migrate_working_dir/
+
+# IntelliJ related
 *.iml
 *.ipr
 *.iws
-flutter_export_environment.sh
+.idea/
 
-# Android
-android/.gradle
-android/captures/
-android/gradlew
-android/gradlew.bat
-android/local.properties
-android/**/GeneratedPluginRegistrant.java
-android/key.properties
-android/app/google-services.json
-*.jks
-*.keystore
+# The .vscode folder contains launch configuration and tasks you configure in
+# VS Code which you may wish to be included in version control, so this line
+# is commented out by default.
+#.vscode/
 
-# iOS
-ios/.symlinks/
-ios/Flutter/App.framework
-ios/Flutter/Flutter.framework
-ios/Flutter/Flutter.podspec
-ios/Flutter/Generated.xcconfig
-ios/Flutter/ephemeral/
-ios/Flutter/app.flx
-ios/Flutter/app.zip
-ios/Flutter/flutter_assets/
-ios/Flutter/flutter_export_environment.sh
-ios/ServiceDefinitions.json
-ios/Runner/GeneratedPluginRegistrant.*
-ios/Podfile.lock
+# Flutter/Dart/Pub related
+**/doc/api/
+**/ios/Flutter/.last_build_id
+.dart_tool/
+.flutter-plugins-dependencies
+.pub-cache/
+.pub/
+/build/
+/coverage/
 
-# macOS
-macos/Flutter/GeneratedPluginRegistrant.swift
-macos/Flutter/ephemeral/
+# Symbolication related
+app.*.symbols
 
-# Web
-lib/generated_plugin_registrant.dart
+# Obfuscation related
+app.*.map.json
 
-# Firebase
+# Android Studio will place build artifacts here
+/android/app/debug
+/android/app/profile
+/android/app/release
+
+# Firebase — never commit these
 google-services.json
 GoogleService-Info.plist
-firebase_options.dart
-.firebaserc
-firebase-debug.log
-firestore-debug.log
-ui-debug.log
+lib/firebase_options.dart
 
-# Coverage
-coverage/
+# Release keystore and signing config
+*.jks
+*.keystore
+key.properties
+android/key.properties
 
-# Symbols
-app.map
-
-# VS Code
-.vscode/
-
-# IntelliJ / Android Studio
-.idea/
-.gradle/
-
-# Environment
+# Environment / secrets
 .env
-*.env
-*.env.local
-*.env.*.local
+*.env.*
 
-# OS
-.DS_Store
-Thumbs.db
+# Generated APK / AAB outputs
+*.apk
+*.aab
